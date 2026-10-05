@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>בְּצַלְאֵל בּוֹנֶה | מִשְׂחֲקֵי יַזָּמוּת – שְׁחָקִים</title>
+<meta name="description" content="משחקי יזמות לכיתות ב׳–ג׳ – בית ספר שחקים, אשדוד">
+<meta name="theme-color" content="#0a5fa0">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/common.js"></script>
+<script src="../js/art.js"></script>
+<script src="../js/g3.js" defer></script>
+</head>
+<body data-root="../" class="game g3">
+<a class="skip" href="#main">דִּלּוּג לַתּוֹכֶן הָרָאשִׁי</a>
+<header class="topbar"><div class="wrap">
+<a class="brand" href="../index.html"><img src="../assets/shhakim-logo.png" alt="שחקים – בית ספר מדעי ליזמות חוקרת – לדף הבית" width="900" height="318"><span>מִשְׂחֲקֵי יַזָּמוּת</span></a>
+<span class="spacer"></span><a class="btn light small" href="../index.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg><span>לְסַרְגֵּל הַיַּזָּמוּת</span></a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<div class="game-head">
+  <div>
+    <p class="kicker">שִׁעוּר 1.3 · יְצִירָתִיּוּת מִתּוֹךְ אִלּוּץ</p>
+    <h1>בְּצַלְאֵל בּוֹנֶה</h1>
+    <p class="instr" id="instr">בּוֹנִים מַשֶּׁהוּ שֶׁיַּעֲזֹר לְחָבֵר – רַק מִמָּה שֶׁיֵּשׁ בַּשַּׂקִּית!</p>
+  </div>
+  <button type="button" class="btn light read-btn" data-read="#instr" aria-label="הַקְרִיאוּ לִי אֶת הַהוֹרָאָה" data-icon="speaker"><span>הַקְרָאָה</span></button>
+</div>
+
+<div class="stage">
+  <section class="screen surface" id="s-intro" aria-labelledby="intro-h">
+    <div class="story">
+      <div class="story-art" aria-hidden="true" data-a="box"></div>
+      <div>
+        <h2 id="intro-h">בּוֹנִים מִמָּה שֶׁיֵּשׁ – כְּמוֹ בְּצַלְאֵל</h2>
+        <p id="story-text">כְּשֶׁבָּנוּ אֶת הַמִּשְׁכָּן בַּמִּדְבָּר, לֹא הָיוּ חֲנֻיּוֹת. בְּנֵי יִשְׂרָאֵל הֵבִיאוּ מָה שֶׁהָיָה לָהֶם, וּבְצַלְאֵל בָּנָה מִזֶּה מִשְׁכָּן נִפְלָא.</p>
+        <blockquote class="quote">בְּחָכְמָה וּבִתְבוּנָה וּבְדַעַת וּבְכָל מְלָאכָה<cite>שְׁמוֹת לא, ג</cite></blockquote>
+        <p>גַּם אֲנַחְנוּ נִבְנֶה הַיּוֹם מִמָּה שֶׁיֵּשׁ. <strong>אִלּוּץ</strong> הוּא כְּלָל שֶׁמַּגְבִּיל אוֹתָנוּ – וְהוּא מַכְרִיחַ אוֹתָנוּ לַחְשֹׁב אַחֶרֶת!</p>
+      </div>
+    </div>
+    <h2>כְּלָלֵי הָאִלּוּץ</h2>
+    <ul class="rules">
+      <li><span class="r-n">1</span>רַק הַחֳמָרִים שֶׁבַּשַּׂקִּית.</li>
+      <li><span class="r-n">2</span>בּוֹנִים מַשֶּׁהוּ שֶׁיַּעֲזֹר לְחָבֵר בַּכִּתָּה.</li>
+      <li><span class="r-n">3</span>חֹמֶר שֶׁהִשְׁתַּמַּשְׁנוּ בּוֹ – יוֹצֵא מֵהַשַּׂקִּית.</li>
+    </ul>
+    <fieldset class="fs"><legend>רָמַת הָאֶתְגָּר</legend>
+      <div class="choice-grid two" id="level" role="radiogroup" aria-label="רָמַת הָאֶתְגָּר">
+        <button type="button" class="choice" role="radio" aria-checked="true" data-v="b">כִּתָּה ב'<small>כָּל הַחֳמָרִים שֶׁבַּשַּׂקִּית</small></button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="g">כִּתָּה ג'<small>הַגְרָלָה: חֹמֶר אֶחָד יוֹצֵא מֵהַמִּשְׂחָק</small></button>
+      </div>
+    </fieldset>
+    <button type="button" class="toggle timer-toggle" id="timer-opt" aria-pressed="false"><span><strong>שָׁעוֹן חוֹל</strong><br><small>12 דַּקּוֹת (כִּתָּה ג': 10). אֶפְשָׁר לַעֲצֹר בְּכָל רֶגַע.</small></span><span class="knob" aria-hidden="true"></span></button>
+    <h2 id="mission-h">מָה נִבְנֶה? בַּחֲרוּ מְשִׂימָה</h2>
+    <div class="choice-grid" id="missions" aria-labelledby="mission-h"></div>
+  </section>
+
+  <section class="screen" id="s-build" hidden aria-labelledby="build-h">
+    <div class="build-head surface">
+      <div><h2 id="build-h" tabindex="-1"></h2><p id="build-sub"></p><p class="lottery" id="lottery" hidden></p></div>
+      <div class="hourglass" id="hourglass" hidden><span class="hg-icon" aria-hidden="true"></span><span id="hg-time" role="timer" aria-live="off"></span><button type="button" class="btn light small" id="hg-pause">עֲצִירָה</button><button type="button" class="btn light small" id="hg-off">כִּבּוּי הַשָּׁעוֹן</button></div>
+    </div>
+    <div class="build-grid">
+      <section class="bag glass" aria-labelledby="bag-h">
+        <h3 id="bag-h">הַשַּׂקִּית שֶׁלָּנוּ</h3>
+        <p class="small-help">בַּחֲרוּ חֹמֶר, וְאַחַר כָּךְ בַּחֲרוּ לְאֵיזֶה חֵלֶק הוּא הוֹלֵךְ. אֶפְשָׁר גַּם לִגְרֹר.</p>
+        <div class="mats" id="mats"></div>
+        <h3 class="not-bag-h">לֹא בַּשַּׂקִּית</h3>
+        <div class="mats not" id="notmats"></div>
+      </section>
+      <section class="bench" aria-labelledby="bench-h">
+        <h3 id="bench-h">שֻׁלְחַן הָעֲבוֹדָה</h3>
+        <div class="slots" id="slots"></div>
+        <div class="feedback" id="fb" aria-live="polite" aria-atomic="true"></div>
+        <div class="btn-row"><button type="button" class="btn green big" id="check">בְּדִיקַת אִלּוּץ</button><button type="button" class="btn light" id="restart">מְשִׂימָה אַחֶרֶת</button></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="screen surface" id="s-show" hidden aria-labelledby="show-h">
+    <h2 id="show-h" tabindex="-1">תַּעֲרוּכַת דַּקָּה!</h2>
+    <div class="turntable" aria-hidden="true"><div class="tt-model" id="tt-model"></div><div class="tt-base"></div></div>
+    <p class="used" id="used"></p>
+    <fieldset class="fs"><legend id="sentence-l">בָּנִינוּ ___ שֶׁעוֹזֵר ___</legend>
+      <div class="choice-grid" id="helps" role="radiogroup" aria-labelledby="sentence-l"></div>
+    </fieldset>
+    <fieldset class="fs"><legend>כְּשֶׁיֵּשׁ לָנוּ מְעַט חֳמָרִים, אֲנַחְנוּ...</legend>
+      <div class="choice-grid" id="reflect" role="radiogroup" aria-label="כְּשֶׁיֵּשׁ לָנוּ מְעַט חֳמָרִים">
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="מְחַפְּשִׂים דֶּרֶךְ אַחֶרֶת">מְחַפְּשִׂים דֶּרֶךְ אַחֶרֶת</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="מְבַקְּשִׁים עֶזְרָה">מְבַקְּשִׁים עֶזְרָה</button>
+        <button type="button" class="choice" role="radio" aria-checked="false" data-v="מַמְצִיאִים">מַמְצִיאִים</button>
+      </div>
+    </fieldset>
+    <button type="button" class="btn green big" id="finish">סִיַּמְנוּ!</button>
+    <div class="feedback" id="fb3" aria-live="polite" aria-atomic="true"></div>
+    <div id="end" hidden>
+      <blockquote class="quote">וּבְלֵב כָּל חֲכַם לֵב נָתַתִּי חָכְמָה<cite>שְׁמוֹת לא, ו</cite></blockquote>
+      <div class="btn-row"><button type="button" class="btn purple" id="again">בּוֹנִים עוֹד דָּבָר</button><a class="btn" href="../index.html">חֲזָרָה לְסַרְגֵּל הַיַּזָּמוּת</a></div>
+    </div>
+  </section>
+</div>
+
+<details class="teacher">
+  <summary>למורה: מטרה ואופן הפעלה</summary>
+  <div class="tbody"><dl>
+    <dt>מטרת השיעור</dt><dd>יצירתיות מתוך אילוץ: מעט חומרים או כלל מיוחד מעוררים רעיונות. ניהול משאבים מוגבלים (חלק מהגדרת היזמות בשחקים). מטרה ערכית: שמחת היצירה המשותפת וכבוד לחומרים, כמו בצלאל שבנה מתרומות העם.</dd>
+    <dt>המכניקה</dt><dd>בנייה תחת אילוץ: שקית עם אותה רשימה כמו בשיעור (קופסה, 2 גלילים, 4 פקקים, 5 אטבים, חוט, נייר דבק, דף צבעוני). בוחרים משימה שעוזרת לחבר, ומשבצים חומרים בחלקי הדגם. חומר שנוצל יוצא מהשקית, וכך צריך לבחור (למשל: הקופסה יכולה להיות בסיס או תאים – לא שניהם). חומרים "מפתים" שלא בשקית (מספריים חדים, דבק חם) נדחים בעדינות. בכיתה ג' יש הגרלה שמוציאה חומר אחד (תמיד נשאר פתרון). שעון חול אופציונלי – כבוי כברירת מחדל, ואין כישלון כשהזמן נגמר.</dd>
+    <dt>איך מפעילים בכיתה</dt><dd>לפני הבנייה האמיתית – כ"תכנון" (2 דקות) על הלוח: הצוות בוחר משימה ומשבץ חומרים, ואז בונה בשקית האמיתית. או אחרי הבנייה – להשוות: "איזה פתרון אחר יכולנו לבנות?". בתערוכת הדקה הילדים משלימים "בנינו ___ שעוזר ל___" ובוחרים משפט רפלקציה (כמו בכרטיס היציאה).</dd>
+    <dt>מערך השיעור</dt><dd><a href="../teacher/lesson-1-3.html">מערך 1.3 המלא – בצלאל בונה</a></dd>
+  </dl></div>
+</details>
+</div>
+
+</main>
+<footer class="site-foot"><div class="wrap">
+<span>בֵּית סֵפֶר שְׁחָקִים, אַשְׁדּוֹד · בֵּית סֵפֶר מַדָּעִי לְיַזָּמוּת חוֹקֶרֶת</span>
+<span>הַמּוֹרָה: חַנָּה סוּיסָה</span>
+<a href="../negishut.html">הַצְהָרַת נְגִישׁוּת</a>
+</div></footer>
+<div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

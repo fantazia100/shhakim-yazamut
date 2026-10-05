@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הַטֶּבַע מַמְצִיא | מִשְׂחֲקֵי יַזָּמוּת – שְׁחָקִים</title>
+<meta name="description" content="משחקי יזמות לכיתות ב׳–ג׳ – בית ספר שחקים, אשדוד">
+<meta name="theme-color" content="#0a5fa0">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/common.js"></script>
+<script src="../js/art.js"></script>
+<script src="../js/g2.js" defer></script>
+</head>
+<body data-root="../" class="game g2">
+<a class="skip" href="#main">דִּלּוּג לַתּוֹכֶן הָרָאשִׁי</a>
+<header class="topbar"><div class="wrap">
+<a class="brand" href="../index.html"><img src="../assets/shhakim-logo.png" alt="שחקים – בית ספר מדעי ליזמות חוקרת – לדף הבית" width="900" height="318"><span>מִשְׂחֲקֵי יַזָּמוּת</span></a>
+<span class="spacer"></span><a class="btn light small" href="../index.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg><span>לְסַרְגֵּל הַיַּזָּמוּת</span></a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<div class="game-head">
+  <div>
+    <p class="kicker">שִׁעוּר 1.2 · חִבּוּר בֵּין עוֹלָמוֹת</p>
+    <h1>הַטֶּבַע מַמְצִיא</h1>
+    <p class="instr" id="instr">מַמְצִיאִים לוֹמְדִים מֵהַטֶּבַע! הָפְכוּ שְׁנֵי קְלָפִים וּמִצְאוּ זוּג: רַעְיוֹן מֵהַטֶּבַע וְהַהַמְצָאָה שֶׁנּוֹלְדָה מִמֶּנּוּ.</p>
+  </div>
+  <button type="button" class="btn light read-btn" data-read="#instr" aria-label="הַקְרִיאוּ לִי אֶת הַהוֹרָאָה" data-icon="speaker"><span>הַקְרָאָה</span></button>
+</div>
+
+<div class="stage">
+  <section class="screen" id="s-memory" aria-labelledby="mem-h">
+    <div class="example surface">
+      <div class="eq" aria-hidden="true"><span class="eq-i" data-a="pencilEraser"></span></div>
+      <p><strong>דֻּגְמָה:</strong> עִפָּרוֹן וְעוֹד מַחַק = עִפָּרוֹן עִם מַחַק! כְּשֶׁמְּחַבְּרִים שְׁנֵי דְּבָרִים שׁוֹנִים, נוֹלֶדֶת הַמְצָאָה.</p>
+    </div>
+    <div class="mem-layout">
+      <div>
+        <h2 id="mem-h">מִשְׂחַק הַזִּכָּרוֹן</h2>
+        <p class="hint-line">אֶפְשָׁר לָזוּז בֵּין הַקְּלָפִים בַּחִצִּים וְלַהֲפֹךְ בְּאֶנְטֶר אוֹ רֶוַח.</p>
+        <div class="mem-grid" id="grid" role="group" aria-label="קְלָפֵי זִכָּרוֹן"></div>
+        <div class="feedback" id="fb" aria-live="polite" aria-atomic="true"></div>
+        <p class="moves" id="moves"></p>
+      </div>
+      <aside class="navcard glass" aria-labelledby="nav-h">
+        <h2 id="nav-h">כַּרְטִיס הַנִּוּוּט שֶׁלִּי</h2>
+        <div class="nav-task" data-cat="stick"><h3><span class="dot d-stick" aria-hidden="true"></span>מָה נִדְבָּק אוֹ מַחֲזִיק?</h3><ul></ul></div>
+        <div class="nav-task" data-cat="guard"><h3><span class="dot d-guard" aria-hidden="true"></span>מָה מֵגֵן?</h3><ul></ul></div>
+        <div class="nav-task" data-cat="shape"><h3><span class="dot d-shape" aria-hidden="true"></span>אֵיזוֹ צוּרָה מְיֻחֶדֶת?</h3><ul></ul></div>
+        <button type="button" class="btn green" id="to-machine" hidden>לִמְכוֹנַת הַחִבּוּרִים ←</button>
+      </aside>
+    </div>
+  </section>
+
+  <section class="screen" id="s-machine" hidden aria-labelledby="mach-h">
+    <div class="surface">
+      <h2 id="mach-h" tabindex="-1">מְכוֹנַת הַחִבּוּרִים</h2>
+      <p>בַּחֲרוּ רַעְיוֹן מֵהַטֶּבַע וְחֵפֶץ – וְחַבְּרוּ אוֹתָם לְהַמְצָאָה חֲדָשָׁה. "מָה יִקְרֶה אִם לַחֵפֶץ יִהְיֶה מָה שֶׁיֵּשׁ לַטֶּבַע?"</p>
+      <div class="machine">
+        <div class="reel-box">
+          <h3 id="r1-h">רַעְיוֹן מֵהַטֶּבַע</h3>
+          <div class="reel" id="reel1" aria-hidden="true"><div class="reel-drum"></div></div>
+          <p class="reel-label" id="r1-l"></p>
+          <div class="btn-row reel-btns"><button type="button" class="btn light icon-btn" data-reel="1" data-d="-1" aria-label="רַעְיוֹן קוֹדֵם">▲</button><button type="button" class="btn light icon-btn" data-reel="1" data-d="1" aria-label="רַעְיוֹן הַבָּא">▼</button></div>
+        </div>
+        <div class="plus" aria-hidden="true">+</div>
+        <div class="reel-box">
+          <h3 id="r2-h">חֵפֶץ</h3>
+          <div class="reel" id="reel2" aria-hidden="true"><div class="reel-drum"></div></div>
+          <p class="reel-label" id="r2-l"></p>
+          <div class="btn-row reel-btns"><button type="button" class="btn light icon-btn" data-reel="2" data-d="-1" aria-label="חֵפֶץ קוֹדֵם">▲</button><button type="button" class="btn light icon-btn" data-reel="2" data-d="1" aria-label="חֵפֶץ הַבָּא">▼</button></div>
+        </div>
+      </div>
+      <div class="btn-row center-row"><button type="button" class="btn purple big" id="spin">סוֹבְבוּ אֶת הַמְּכוֹנָה</button></div>
+      <div class="result glass" id="result">
+        <p class="inv-name" id="inv-name"></p>
+        <p id="inv-does"></p>
+        <fieldset class="fs"><legend>לְמִי הַהַמְצָאָה עוֹזֶרֶת?</legend>
+          <div class="choice-grid helpers" id="helpers" role="radiogroup" aria-label="לְמִי הַהַמְצָאָה עוֹזֶרֶת"></div>
+        </fieldset>
+        <button type="button" class="btn green" id="save-inv">הוֹסִיפוּ לַגַּלֶּרְיָה</button>
+      </div>
+      <div class="feedback" id="fb2" aria-live="polite" aria-atomic="true"></div>
+      <h3>גַּלֶּרְיַת הַהַמְצָאוֹת שֶׁלָּנוּ</h3>
+      <ul class="gallery" id="gallery"><li class="empty">עֲדַיִן אֵין הַמְצָאוֹת – הַמְצִיאוּ אֶת הָרִאשׁוֹנָה!</li></ul>
+      <div id="wonder" hidden>
+        <blockquote class="quote">מָה רַבּוּ מַעֲשֶׂיךָ ה'<cite>תְּהִלִּים קד, כד</cite></blockquote>
+        <p>הַטֶּבַע מָלֵא רַעְיוֹנוֹת נִפְלָאִים. תּוֹדָה עַל הַבְּרִיאָה – וְעַל הָרַעְיוֹנוֹת שֶׁלָּכֶם!</p>
+        <a class="btn" href="../index.html">חֲזָרָה לְסַרְגֵּל הַיַּזָּמוּת</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<details class="teacher">
+  <summary>למורה: מטרה ואופן הפעלה</summary>
+  <div class="tbody"><dl>
+    <dt>מטרת השיעור</dt><dd>יצירתיות כחיבור בין עולמות: המצאה חדשה נולדת מחיבור של שני דברים שונים (קוץ וסקוטש, עיפרון ומחק). מטרה ערכית: התפעלות והכרת תודה על הבריאה – "מה רבו מעשיך ה'".</dd>
+    <dt>המכניקה</dt><dd>משחק זיכרון בהיפוך קלפים (6 זוגות: טבע ↔ המצאה). כל זוג שנמצא נכנס ל"כרטיס הניווט" לפי שלוש המשימות של השיעור (נדבק/מחזיק, מגן, צורה מיוחדת). אחר כך "מכונת החיבורים": ממצא מהטבע + כרטיס חפץ (כיסא, תיק, כובע, בקבוק, נעל, מטרייה, כף, אופניים) = המצאה, ובוחרים למי היא עוזרת. אין שעון והקלפים לא נסגרים מעצמם.</dd>
+    <dt>איך מפעילים בכיתה</dt><dd>מתאים לפתיחה בכיתה לפני היציאה ליער המאכל, או לסיכום אחרי החזרה (וגם כחלופה ביום גשום, יחד עם "יער בקופסה"). במכונת החיבורים – כל זוג מסובב, משרטט את ההמצאה בכרטיס "ההמצאה המחוברת שלנו" ומציג: "החיבור שלנו הוא ___ ועוד ___, וזה עוזר ל___". כיתה ג': להוסיף "איך זה עובד?".</dd>
+    <dt>מערך השיעור</dt><dd><a href="../teacher/lesson-1-2.html">מערך 1.2 המלא – חיבור בין עולמות</a></dd>
+  </dl></div>
+</details>
+</div>
+
+</main>
+<footer class="site-foot"><div class="wrap">
+<span>בֵּית סֵפֶר שְׁחָקִים, אַשְׁדּוֹד · בֵּית סֵפֶר מַדָּעִי לְיַזָּמוּת חוֹקֶרֶת</span>
+<span>הַמּוֹרָה: חַנָּה סוּיסָה</span>
+<a href="../negishut.html">הַצְהָרַת נְגִישׁוּת</a>
+</div></footer>
+<div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
