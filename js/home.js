@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded',function(){
   function render(){
     var p=SH.getProgress(), n=0, pips='';
     ['g1','g2','g3','g4','g5'].forEach(function(g){var d=!!p[g]; if(d) n++; pips+='<span class="pip'+(d?' done':'')+'"></span>'; var c=document.querySelector('[data-game="'+g+'"]'); if(c) c.classList.toggle('done',d);});
+    document.querySelectorAll('[data-trivia]').forEach(function(t){t.classList.toggle('done',!!p[t.dataset.trivia]);});
     document.getElementById('pips').innerHTML=pips;
     document.getElementById('pips-sr').textContent='סִיַּמְתֶּם '+n+' מִתּוֹךְ 5 מִשְׂחָקִים';
   }

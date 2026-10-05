@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>טְרִיוִיָּה | מִשְׂחֲקֵי יַזָּמוּת – שְׁחָקִים</title>
+<meta name="description" content="משחקי יזמות לכיתות ב׳–ג׳ – בית ספר שחקים, אשדוד">
+<meta name="theme-color" content="#0a5fa0">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/common.js"></script>
+<script src="js/art.js"></script>
+<script src="js/trivia-data.js" defer></script><script src="js/trivia.js" defer></script>
+</head>
+<body data-root="" class="game trivia">
+<a class="skip" href="#main">דִּלּוּג לַתּוֹכֶן הָרָאשִׁי</a>
+<header class="topbar"><div class="wrap">
+<a class="brand" href="index.html"><img src="assets/shhakim-logo.png" alt="שחקים – בית ספר מדעי ליזמות חוקרת – לדף הבית" width="900" height="318"><span>מִשְׂחֲקֵי יַזָּמוּת</span></a>
+<span class="spacer"></span><a class="btn light small" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg><span>לְסַרְגֵּל הַיַּזָּמוּת</span></a>
+</div></header>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<div class="game-head">
+  <div>
+    <p class="kicker" id="t-kicker">טְרִיוִיָּה</p>
+    <h1 id="t-title">טְרִיוִיָּה לְיַזָּמִים צְעִירִים</h1>
+    <p class="instr" id="instr">בַּחֲרוּ טְרִיוִיָּה וְנַתְחִיל!</p>
+  </div>
+  <button type="button" class="btn light read-btn" data-read="#instr" aria-label="הַקְרִיאוּ לִי אֶת הַהוֹרָאָה" data-icon="speaker"><span>הַקְרָאָה</span></button>
+</div>
+
+<div class="stage">
+  <section class="screen surface" id="s-menu" aria-labelledby="menu-h" hidden>
+    <h2 id="menu-h">אֵיזוֹ טְרִיוִיָּה נְשַׂחֵק?</h2>
+    <ul class="tsets" id="t-sets"></ul>
+  </section>
+
+  <section class="screen surface" id="s-setup" aria-labelledby="setup-h" hidden>
+    <div class="setup-grid">
+      <div class="setup-art" id="setup-art" aria-hidden="true"></div>
+      <div>
+        <h2 id="setup-h" tabindex="-1">אֵיךְ מְשַׂחֲקִים?</h2>
+        <div class="choice-grid two" id="mode" role="radiogroup" aria-label="אֹפֶן הַמִּשְׂחָק">
+          <button type="button" class="choice" role="radio" aria-checked="true" tabindex="0" data-v="solo"><span>לְבַד אוֹ בְּזוּג</span><small>אוֹסְפִים כּוֹכָבִים</small></button>
+          <button type="button" class="choice" role="radio" aria-checked="false" tabindex="-1" data-v="teams"><span>צְוָתִים בַּכִּתָּה</span><small>לַלּוּחַ הֶחָכָם: 2–4 צְוָתִים, כָּל צֶוֶת בְּתוֹרוֹ</small></button>
+        </div>
+        <div id="teams-wrap" hidden>
+          <p class="lbl" id="nteams-l">כַּמָּה צְוָתִים?</p>
+          <div class="chips" id="nteams" role="radiogroup" aria-labelledby="nteams-l">
+            <button type="button" class="chip-btn" role="radio" aria-checked="true" tabindex="0" data-v="2">2</button>
+            <button type="button" class="chip-btn" role="radio" aria-checked="false" tabindex="-1" data-v="3">3</button>
+            <button type="button" class="chip-btn" role="radio" aria-checked="false" tabindex="-1" data-v="4">4</button>
+          </div>
+        </div>
+        <ul class="t-rules">
+          <li>אֵין שָׁעוֹן – חוֹשְׁבִים בְּנַחַת.</li>
+          <li>אֵין הוֹרָדַת נְקֻדּוֹת. כָּל תְּשׁוּבָה מְלַמֶּדֶת מַשֶּׁהוּ.</li>
+          <li>אֶפְשָׁר לַעֲנוֹת בִּנְגִיעָה, בָּעַכְבָּר אוֹ בַּמִּקְשִׁים 1–4.</li>
+        </ul>
+        <div class="btn-row"><button type="button" class="btn purple big" id="start">מַתְחִילִים!</button><a class="btn light" id="to-game" href="#" hidden><span id="to-game-l">לַמִּשְׂחָק</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="s-play" aria-labelledby="t-q" hidden>
+    <div class="t-top surface">
+      <div class="t-progress"><p id="t-prog" class="t-prog"></p><div class="bar" aria-hidden="true"><span id="t-bar"></span></div></div>
+      <ul class="t-score" id="t-score" aria-label="נִקּוּד"></ul>
+    </div>
+    <p class="t-turn" id="t-turn" hidden></p>
+    <div class="t-card surface" id="t-card">
+      <div class="t-head"><span class="t-type" id="t-type"></span><button type="button" class="btn light small" id="t-read"></button></div>
+      <div class="t-art" id="t-art" aria-hidden="true" hidden></div>
+      <h2 class="t-q" id="t-q" tabindex="-1"></h2>
+      <div class="t-opts" id="t-opts" role="group" aria-labelledby="t-q"></div>
+      <div class="feedback" id="t-ex" aria-live="polite" aria-atomic="true"></div>
+      <div class="btn-row"><button type="button" class="btn orange big" id="t-why" hidden>וְעַכְשָׁיו – לָמָּה? ←</button><button type="button" class="btn green big" id="t-next" hidden>לַשְּׁאֵלָה הַבָּאָה ←</button></div>
+    </div>
+  </section>
+
+  <section class="screen surface" id="s-end" aria-labelledby="end-h" hidden>
+    <h2 id="end-h" tabindex="-1"></h2>
+    <div class="end-stars" id="end-stars" aria-hidden="true"></div>
+    <ol class="podium" id="podium" aria-label="הַנִּקּוּד שֶׁל הַצְּוָתִים" hidden></ol>
+    <p class="end-msg" id="end-msg"></p>
+    <blockquote class="quote">וְאִם לֹא עַכְשָׁיו, אֵימָתַי?<cite>אָבוֹת א, יד</cite></blockquote>
+    <div class="btn-row center-row"><button type="button" class="btn purple" id="again">עוֹד פַּעַם</button><a class="btn light" href="trivia.html">טְרִיוִיָּה אַחֶרֶת</a><a class="btn" href="index.html">לְסַרְגֵּל הַיַּזָּמוּת</a></div>
+  </section>
+</div>
+
+<details class="teacher">
+  <summary>למורה: מטרה ואופן הפעלה</summary>
+  <div class="tbody"><dl>
+    <dt>מה יש כאן</dt><dd>טריוויה קצרה לכל שיעור (7–8 שאלות) לחזרה ולסיכום, וטריוויית היזמים הכללית (20 שאלות): מהו יזם, יצירתיות, המצאות בהשראת הטבע, המצאות ישראליות, מקורות (בצלאל, פרקי אבות, משלי) ויוזמות חסד.</dd>
+    <dt>סוגי שאלות</dt><dd>בחירה מרובה, נכון/לא נכון, בחירת תמונה, ושאלת המשך "למה?" (בונוס) שמבקשת לנמק. אחרי כל תשובה מופיע הסבר קצר, וגם אחרי טעות – בלי הורדת נקודות.</dd>
+    <dt>מצב צוותים ללוח חכם</dt><dd>בוחרים "צוותים בכיתה" ו־2–4 צוותים. כל שאלה עוברת לצוות הבא; הצוות מתייעץ ועונה. לוח הנקודות מוצג למעלה, ובסוף מופיע "פודיום" עם הודעה שכולם למדו. אפשר לתת לצוות שטעה לנמק יחד עם הכיתה.</dd>
+    <dt>נגישות</dt><dd>אין שעון. אפשר לענות במקשי 1–4, בטאב ואנטר. כפתור "הקריאו את השאלה" מקריא שאלה ואפשרויות (כשבמכשיר יש קול עברי). המשוב מוכרז לקוראי מסך. בהגדרות אפשר לכבות תלת־ממד ותנועה.</dd>
+    <dt>על העובדות</dt><dd>נבחרו רק עובדות מבוססות, בניסוח זהיר: למשל, חוקרים בפקולטה לחקלאות ברחובות פיתחו עגבניות עמידות לאחסון ארוך (ולא "המציאו" את עגבניית השרי), ודיסק־און־קי הוא "אחד הזיכרונות הניידים הראשונים". השאלה על כיפת ברזל מנוסחת בעדינות; בכיתות שבהן הנושא רגיש אפשר לדלג עליה.</dd>
+  </dl></div>
+</details>
+</div>
+
+</main>
+<footer class="site-foot"><div class="wrap">
+<span>בֵּית סֵפֶר שְׁחָקִים, אַשְׁדּוֹד · בֵּית סֵפֶר מַדָּעִי לְיַזָּמוּת חוֹקֶרֶת</span>
+<span>הַמּוֹרָה: חַנָּה סוּיסָה</span>
+<a href="negishut.html">הַצְהָרַת נְגִישׁוּת</a>
+</div></footer>
+<div id="sr-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
