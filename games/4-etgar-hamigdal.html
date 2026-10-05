@@ -35,25 +35,26 @@
     <ul class="kit">
       <li><span class="kit-n">15</span>קַשִּׁיּוֹת נְיָר</li>
       <li><span class="kit-n">4</span>מְהַדְּקִים</li>
-      <li><span class="kit-n">1</span>נְיַר דֶּבֶק</li>
+      <li><span class="kit-n">60</span>ס"מ נְיַר דֶּבֶק</li>
       <li><span class="kit-n">1</span>פּוֹנְפּוֹן</li>
     </ul>
-    <p><strong>בְּעָיָה הִיא הִזְדַּמְּנוּת לַחְשֹׁב יַחַד.</strong> בַּסִּבּוּב הָרִאשׁוֹן בּוֹנִים וּבוֹדְקִים. אַחַר כָּךְ עוֹצְרִים לִלְמֹד – וּבַסִּבּוּב הַשֵּׁנִי מְשַׁפְּרִים.</p>
-    <button type="button" class="toggle timer-toggle" id="timer-opt" aria-pressed="false"><span><strong>אֶתְגָּר עִם שָׁעוֹן חוֹל</strong><br><small>2 דַּקּוֹת לְכָל סִבּוּב. כְּבוּי = בּוֹנִים בְּלִי לַחַץ זְמַן.</small></span><span class="knob" aria-hidden="true"></span></button>
+    <p><strong>בְּעָיָה הִיא הִזְדַּמְּנוּת לַחְשֹׁב יַחַד.</strong> בַּסֶּבֶב הָרִאשׁוֹן בּוֹנִים וּבוֹדְקִים. אַחַר כָּךְ עוֹצְרִים לִלְמֹד – וּבַסֶּבֶב הַשֵּׁנִי מְשַׁפְּרִים.</p>
+    <button type="button" class="toggle timer-toggle" id="timer-opt" aria-pressed="false"><span><strong>אֶתְגָּר עִם שָׁעוֹן חוֹל</strong><br><small>2 דַּקּוֹת לְכָל סֶבֶב. כָּבוּי = בּוֹנִים בְּלִי לַחַץ זְמַן.</small></span><span class="knob" aria-hidden="true"></span></button>
     <button type="button" class="btn orange big" id="start">מַתְחִילִים לִבְנוֹת!</button>
   </section>
 
   <section class="screen" id="s-play" hidden aria-labelledby="round-h">
     <div class="play-head surface">
-      <h2 id="round-h" tabindex="-1">סִבּוּב 1</h2>
+      <h2 id="round-h" tabindex="-1">סֶבֶב 1</h2>
       <div class="hourglass" id="hourglass" hidden><span class="hg-icon" aria-hidden="true"></span><span id="hg-time" role="timer" aria-live="off"></span><button type="button" class="btn light small" id="hg-pause">עֲצִירָה</button><button type="button" class="btn light small" id="hg-off">כִּבּוּי הַשָּׁעוֹן</button></div>
     </div>
     <div class="tower-grid">
       <div class="viewer-col">
         <div class="viewer" id="viewer" role="img" aria-label="מִגְדָּל"><div class="no3d" id="no3d" hidden></div></div>
-        <div class="btn-row view-btns"><button type="button" class="btn light small" id="rot-r" aria-label="סוֹבְבוּ אֶת הַמִּגְדָּל יָמִינָה">↻ סִבּוּב</button><button type="button" class="btn light small" id="rot-l" aria-label="סוֹבְבוּ אֶת הַמִּגְדָּל שְׂמֹאלָה">סִבּוּב ↺</button><span class="h-read" id="h-read" aria-live="polite"></span></div>
+        <div class="view-btns"><button type="button" class="btn light small" id="rot-r" aria-label="סוֹבְבוּ אֶת הַמִּגְדָּל יָמִינָה">↻ סוֹבְבוּ</button><button type="button" class="btn light small" id="rot-l" aria-label="סוֹבְבוּ אֶת הַמִּגְדָּל שְׂמֹאלָה">סוֹבְבוּ ↺</button><span class="h-read" id="h-read" aria-live="polite"></span></div>
       </div>
       <div class="ctrl-col">
+        <div class="feedback" id="fb" aria-live="polite" aria-atomic="true"></div>
         <div class="panel glass" id="controls">
           <div class="inv">
             <p class="inv-row"><span>קַשִּׁיּוֹת:</span> <span class="straws" id="straws" aria-hidden="true"></span> <span id="straw-n"></span></p>
@@ -88,22 +89,22 @@
             <div class="choice-grid tips" id="tips" role="radiogroup" aria-label="רְמָזִים">
               <button type="button" class="choice" role="radio" aria-checked="false" data-v="tri"><span class="lv-ico tri big" aria-hidden="true"></span>מְשֻׁלָּשִׁים חֲזָקִים יוֹתֵר מֵרִבּוּעִים</button>
               <button type="button" class="choice" role="radio" aria-checked="false" data-v="base"><span class="lv-ico base big" aria-hidden="true"></span>בָּסִיס רָחָב = מִגְדָּל יַצִּיב</button>
+              <button type="button" class="choice" role="radio" aria-checked="false" data-v="small"><span class="lv-ico mini big" aria-hidden="true"></span>נַסּוּ קֹדֶם בְּקָטָן</button>
               <button type="button" class="choice" role="radio" aria-checked="false" data-v="clip"><span class="lv-ico clip big" aria-hidden="true"></span>מְהַדְּקִים מְחַזְּקִים אֶת הַחִבּוּרִים</button>
             </div>
           </fieldset>
-          <button type="button" class="btn orange big" id="next-round">לַסִּבּוּב הַבָּא – מְשַׁפְּרִים!</button>
+          <button type="button" class="btn orange big" id="next-round">לַסֶּבֶב הַבָּא – מְשַׁפְּרִים!</button>
         </div>
       </div>
     </div>
-    <div class="feedback" id="fb" aria-live="polite" aria-atomic="true"></div>
     <section class="results surface" id="results" hidden aria-labelledby="res-h">
       <h3 id="res-h">טַבְלַת הַתּוֹצָאוֹת</h3>
-      <div class="table-wrap"><table><thead><tr><th scope="col">סִבּוּב</th><th scope="col">גֹּבַהּ</th><th scope="col">עָמַד?</th><th scope="col">מָה שִׁנִּינוּ</th></tr></thead><tbody id="res-body"></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th scope="col">סֶבֶב</th><th scope="col">גֹּבַהּ</th><th scope="col">עָמַד?</th><th scope="col">מָה שִׁנִּינוּ</th></tr></thead><tbody id="res-body"></tbody></table></div>
       <p class="improve" id="improve"></p>
       <div id="end" hidden>
         <blockquote class="quote">שֶׁבַע יִפּוֹל צַדִּיק וָקָם<cite>מִשְׁלֵי כד, טז</cite></blockquote>
         <p>גַּם מִי שֶׁנּוֹפֵל שֶׁבַע פְּעָמִים – קָם שׁוּב. יַזָּמִים לֹא פּוֹחֲדִים לִפֹּל, הֵם לוֹמְדִים מִזֶּה. <strong>תּוֹדָה לַצֶּוֶת – כָּל אֶחָד עָזַר!</strong></p>
-        <a class="btn" href="../index.html">חֲזָרָה לְסַרְגֵּל הַיַּזָּמוּת</a>
+        <div class="btn-row"><button type="button" class="btn orange" id="restart">מַתְחִילִים מֵהַהַתְחָלָה</button><a class="btn" href="../index.html">חֲזָרָה לְסַרְגֵּל הַיַּזָּמוּת</a></div>
       </div>
     </section>
   </section>
@@ -118,8 +119,8 @@
   <summary>למורה: מטרה ואופן הפעלה</summary>
   <div class="tbody"><dl>
     <dt>מטרת השיעור</dt><dd>יצירתיות כפתרון בעיה: אב-טיפוס, בדיקה ושיפור בשני סבבים. לזהות שינוי אחד בין הסבבים ולהסביר למה. מטרה ערכית: נפילה היא הזדמנות ללמוד – "שבע יפול צדיק וקם" – ועידוד חברי הצוות.</dd>
-    <dt>המכניקה</dt><dd>בונים מגדל תלת־ממדי מאותה ערכה של השיעור (15 קשיות, 4 מהדקים, פונפון): בוחרים בסיס וקומות (משולש, ריבוע, קשית זקופה) ומחזקים במהדקים. "בודקים!" מפעיל בדיקת יציבות: בסיס רחב ומשולשים מחזיקים, קשיות בודדות ובסיס צר מתנדנדים, ומהדקים מחזקים. אחרי הבדיקה – עצירת למידה ("מה עבד / מה לא / מה נשנה" ובחירת אחד משלושת כרטיסי הרמז של המערך), וטבלת תוצאות שמדגישה שיפור ולא "מי ניצח". אפשר לסובב את המגדל בגרירה או בכפתורים. שעון חול של 2 דקות לסבב הוא אופציונלי (כבוי כברירת מחדל).</dd>
-    <dt>איך מפעילים בכיתה</dt><dd>אחרי סבב 1 עם הקשיות האמיתיות: מקרינים, ונותנים לצוות "לשחזר" את המגדל שלו במשחק ולבדוק. בעצירת הלמידה הצוות בוחר רמז – בדיוק כמו בכרטיסי הרמז. כיתה ג': להעתיק את טבלת התוצאות ולחשב את ההפרש בס"מ. כיתה ב': להשוות "גבוה יותר / נמוך יותר" ולצייר לפני ואחרי.</dd>
+    <dt>המכניקה</dt><dd>בונים מגדל תלת־ממדי מאותה ערכה של השיעור (15 קשיות, 4 מהדקים, פונפון): בוחרים בסיס וקומות (משולש, ריבוע, קשית זקופה) ומחזקים במהדקים. "בודקים!" מפעיל בדיקת יציבות: בסיס רחב ומשולשים מחזיקים, קשיות בודדות ובסיס צר מתנדנדים, ומהדקים מחזקים. אחרי הבדיקה – עצירת למידה ("מה עבד / מה לא / מה נשנה" ובחירת רמז: שלושת כרטיסי הרמז של המערך ועוד רמז על מהדקים), וטבלת תוצאות שמדגישה שיפור ולא "מי ניצח". אפשר לסובב את המגדל בגרירה או בכפתורים. שעון חול של 2 דקות לסבב הוא אופציונלי (כבוי כברירת מחדל).</dd>
+    <dt>איך מפעילים בכיתה</dt><dd>אחרי סבב 1 עם הקשיות האמיתיות: מקרינים, ונותנים לצוות "לשחזר" את המגדל שלו במשחק ולבדוק. בעצירת הלמידה הצוות בוחר רמז – בדיוק כמו בכרטיסי הרמז. כיתה ג׳: להעתיק את טבלת התוצאות ולחשב את ההפרש בס"מ. כיתה ב׳: להשוות "גבוה יותר / נמוך יותר" ולצייר לפני ואחרי.</dd>
     <dt>מערך השיעור</dt><dd><a href="../teacher/lesson-1-4.html">מערך 1.4 המלא – אתגר המגדל</a></dd>
   </dl></div>
 </details>

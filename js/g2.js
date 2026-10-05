@@ -13,7 +13,7 @@ var NATURE=[
  {art:'burr',name:'זֶרַע עִם וָוִים',short:'קוֹץ',does:'לְהִדָּבֵק וְלֹא לִפֹּל'},
  {art:'web',name:'קוּרֵי עַכָּבִישׁ',short:'רֶשֶׁת',does:'לִתְפֹּס וּלְהַחֲזִיק'},
  {art:'nut',name:'קְלִפַּת אֱגוֹז',short:'קְלִפָּה',does:'לְהָגֵן מִפְּנֵי מַכּוֹת'},
- {art:'leaf',name:'עָלֶה עִם שַׁעֲוָה',short:'עָלֶה',does:'לְהַחְלִיק מַיִם וְלִהְיוֹת יָבֵשׁ'},
+ {art:'leaf',name:'עָלֶה עִם שַׁעֲוָה',short:'עָלֶה',does:'לְהַחֲלִיק מַיִם וְלִהְיוֹת יָבֵשׁ'},
  {art:'honeycomb',name:'חַלַּת דְּבַשׁ',short:'מְשֻׁשִּׁים',does:'לִהְיוֹת חֲזָקָה וְקַלָּה'},
  {art:'samara',name:'זֶרַע מִסְתּוֹבֵב',short:'סְבִיבוֹן',does:'לָרֶדֶת לְאַט וּבַעֲדִינוּת'}
 ];
@@ -70,11 +70,23 @@ function flip(c){
     SH.feedback($('fb'),'good','זוּג! '+p.n.t+' ← '+p.v.t+'. '+p.fact);
     var li=document.createElement('li'); li.textContent=p.n.t+' ← '+p.v.t; document.querySelector('.nav-task[data-cat="'+p.cat+'"] ul').appendChild(li);
     if(SH.fx()){li.classList.add('pop');}
-    if(found===PAIRS.length){ setTimeout(function(){ SH.confetti(); SH.feedback($('fb'),'good','מְצָאתֶם אֶת כָּל הַזּוּגוֹת! הַטֶּבַע הוּא מַמְצִיא גָּדוֹל. עַכְשָׁו – תּוֹרְכֶם לְהַמְצִיא!'); $('to-machine').hidden=false; $('to-machine').focus(); }, 900); }
+    if(p.id==='burr') setTimeout(story, 700);
+    if(found===PAIRS.length){ setTimeout(function(){ SH.confetti(); SH.feedback($('fb'),'good','מְצָאתֶם אֶת כָּל הַזּוּגוֹת! הַטֶּבַע הוּא מַמְצִיא גָּדוֹל. עַכְשָׁיו – תּוֹרְכֶם לְהַמְצִיא!'); $('to-machine').hidden=false; $('mem-again').hidden=false; if(!$('velcro-dlg').open) $('to-machine').focus(); }, 900); }
     else if(found===3){ $('to-machine').hidden=false; }
   } else {
     SH.feedback($('fb'),'try','לֹא זוּג: '+a.t+', '+b.t+'. זִכְרוּ אֵיפֹה הֵם, וְנַסּוּ שׁוּב!');
   }
+}
+function story(){
+  var d=$('velcro-dlg');
+  if(d.showModal){ if(!d.open) d.showModal(); } else d.setAttribute('open','');
+  $('velcro-close').focus(); SH.speak(SH.text($('velcro-text')));
+}
+function again(){
+  found=0; moves=0; open=[];
+  document.querySelectorAll('.nav-task ul').forEach(function(u){u.innerHTML='';});
+  $('fb').innerHTML=''; $('fb').className='feedback'; $('to-machine').hidden=true; $('mem-again').hidden=true;
+  build(); cards[0].el.focus();
 }
 function updMoves(){$('moves').textContent='זוּגוֹת: '+found+' מִתּוֹךְ '+PAIRS.length+' · נִסְיוֹנוֹת: '+moves;}
 
@@ -90,7 +102,7 @@ function drawReel(n){
 }
 function move(n,d,silent){
   var list=n===1?NATURE:OBJS, drum=document.querySelector('#reel'+n+' .reel-drum');
-  r[n-1]=(r[n-1]+d+list.length)%list.length; drum._rot=(drum._rot||0)+d*360/list.length; drawReel(n); if(!silent) SH.sfx.tick(); updResult(); if(!silent&&!spinning) SH.announce(list[r[n-1]].name+'. '+$('inv-name').textContent);
+  r[n-1]=(r[n-1]+d+list.length)%list.length; drum._rot=(drum._rot||0)+d*360/list.length; drawReel(n); if(!silent) SH.sfx.tick(); updResult(); if(!silent&&!spinning) SH.announce(list[r[n-1]].name+'. '+SH.text($('inv-name')));
 }
 function updResult(){
   var na=NATURE[r[0]], ob=OBJS[r[1]];
@@ -100,9 +112,10 @@ function updResult(){
 function spin(){
   if(spinning) return; spinning=true;
   var a=3+Math.floor(Math.random()*NATURE.length), b=4+Math.floor(Math.random()*OBJS.length);
-  if(!SH.fx()){ move(1,a,true); move(2,b,true); SH.sfx.good(); spinning=false; SH.announce($('inv-name').textContent); return; }
-  var i=0, t=setInterval(function(){ if(i<a) move(1,1); if(i<b) move(2,1); i++; if(i>=Math.max(a,b)){clearInterval(t); spinning=false; SH.sfx.good(); SH.announce($('inv-name').textContent+'. '+$('inv-does').textContent);} },140);
+  if(!SH.fx()){ move(1,a,true); move(2,b,true); SH.sfx.good(); spinning=false; showResult(); SH.announce(SH.text($('inv-name'))); return; }
+  var i=0, t=setInterval(function(){ if(i<a) move(1,1); if(i<b) move(2,1); i++; if(i>=Math.max(a,b)){clearInterval(t); spinning=false; SH.sfx.good(); showResult(); SH.announce(SH.text($('inv-name'))+'. '+SH.text($('inv-does')));} },140);
 }
+function showResult(){ var e=$('result'), r=e.getBoundingClientRect(); if(r.bottom>innerHeight||r.top<0) e.scrollIntoView({block:'nearest',behavior:SH.fx()?'smooth':'auto'}); }
 function buildHelpers(){
   var g=$('helpers'); HELP.forEach(function(h,i){var b=document.createElement('button'); b.type='button'; b.className='choice'; b.setAttribute('role','radio'); b.setAttribute('aria-checked','false'); b.tabIndex=i===0?0:-1; b.dataset.v=h; b.textContent=h; g.appendChild(b);});
   var items=function(){return Array.prototype.slice.call(g.querySelectorAll('[role=radio]'));};
@@ -119,9 +132,10 @@ function saveInv(){
   var li=document.createElement('li'); li.className='inv-card';
   li.innerHTML='<span class="inv-arts" aria-hidden="true">'+ART[na.art]+'<b>+</b>'+ART[ob.art]+'</span><strong></strong><span></span>';
   li.querySelector('strong').textContent=ob.name+'־'+na.short;
-  li.querySelector('span:last-child').textContent='הַחִבּוּר שֶׁלָּנוּ הוּא '+ob.name+' וְעוֹד '+na.name+', וְזֶה עוֹזֵר '+h.dataset.v+'.';
+  var sent='הַחִבּוּר שֶׁלָּנוּ הוּא '+ob.name+' וְעוֹד '+na.name+', וְזֶה עוֹזֵר '+h.dataset.v+'.';
+  li.querySelector('span:last-child').textContent=sent;
   g.appendChild(li); saved++;
-  SH.feedback($('fb2'),'good','אֵיזוֹ הַמְצָאָה! '+li.querySelector('span:last-child').textContent+' רוֹצִים לְהַמְצִיא עוֹד אַחַת?');
+  SH.feedback($('fb2'),'good','אֵיזוֹ הַמְצָאָה! '+sent+' רוֹצִים לְהַמְצִיא עוֹד אַחַת?');
   if(saved===1){ $('wonder').hidden=false; SH.complete('g2'); SH.confetti(); }
 }
 
@@ -131,6 +145,8 @@ document.addEventListener('DOMContentLoaded',function(){
   $('to-machine').addEventListener('click',function(){$('s-memory').hidden=true; $('s-machine').hidden=false; drawReel(1); drawReel(2); updResult(); $('mach-h').focus(); SH.speak('מְכוֹנַת הַחִבּוּרִים. בַּחֲרוּ רַעְיוֹן מֵהַטֶּבַע וְחֵפֶץ.');});
   document.querySelectorAll('[data-reel]').forEach(function(b){b.addEventListener('click',function(){move(+b.dataset.reel,+b.dataset.d);});});
   $('spin').addEventListener('click',spin);
+  $('mem-again').addEventListener('click',again);
+  $('velcro-close').addEventListener('click',function(){ var d=$('velcro-dlg'); if(d.close) d.close(); else d.removeAttribute('open'); });
   $('save-inv').addEventListener('click',saveInv);
   window.addEventListener('resize',function(){ if(!$('s-machine').hidden){drawReel(1);drawReel(2);} });
 });

@@ -15,6 +15,7 @@ var TI={
  bird:S+'<path d="M8 50 40 44" stroke="#14275c" stroke-width="5" stroke-linecap="round"/><path d="M38 40c6-14 26-18 38-10 10 7 14 22 6 34-8 12-30 14-42 4-6-5-6-16-2-28z" fill="#1e9bd7"/><path d="M50 62c8 6 22 6 30-2-4 14-24 18-34 10z" fill="#f7941d"/><circle cx="54" cy="40" r="5" fill="#fff"/><circle cx="55" cy="40" r="2.5" fill="#14275c"/><path d="M8 50 40 50 38 42z" fill="#2b2b2b"/>'+E,
  tomato:S+'<circle cx="38" cy="58" r="22" fill="#e53935"/><circle cx="66" cy="62" r="18" fill="#ef5350"/><path d="M38 36l-6-8 6 3 4-7 2 8 7-2-5 6" fill="#2bb35b" stroke="#177d3e" stroke-width="2" stroke-linejoin="round"/><path d="M66 44l-4-7 5 3 3-6 2 7 6-1-5 5" fill="#2bb35b" stroke="#177d3e" stroke-width="2" stroke-linejoin="round"/><circle cx="31" cy="50" r="4" fill="#fff" opacity=".6"/>'+E,
  shield:S+'<path d="M50 8 84 20v26c0 22-14 38-34 46C30 84 16 68 16 46V20z" fill="#1a73b8" stroke="#0a5fa0" stroke-width="4"/><path d="M50 22 72 30v16c0 14-9 25-22 31-13-6-22-17-22-31V30z" fill="#e3f1fb"/><path d="M50 34v30M36 48h28" stroke="#1a73b8" stroke-width="6" stroke-linecap="round"/>'+E,
+ solar:S+'<circle cx="74" cy="22" r="12" fill="#ffc83d" stroke="#b07a00" stroke-width="2"/><path d="M74 4v5M74 35v5M56 22h5M87 22h5M61 9l3 3M84 32l3 3M61 35l3-3M84 12l3-3" stroke="#b07a00" stroke-width="3" stroke-linecap="round"/><path d="M6 62 50 40l44 22" fill="#e8c88f" stroke="#7a5230" stroke-width="4" stroke-linejoin="round"/><rect x="14" y="62" width="72" height="30" fill="#f4e3c4" stroke="#7a5230" stroke-width="4"/><path d="M22 58 46 46v12z" fill="#1a73b8" stroke="#0a5fa0" stroke-width="2"/><rect x="50" y="42" width="22" height="10" rx="5" fill="#cfd8e6" stroke="#8b97ad" stroke-width="2"/><rect x="42" y="72" width="16" height="20" fill="#b98c5b"/>'+E,
  tent:S+'<rect x="6" y="84" width="88" height="8" rx="4" fill="#e8c88f"/><path d="M14 84V40h72v44z" fill="#b98c5b"/><path d="M14 40h72" stroke="#7a5230" stroke-width="4"/><path d="M8 40 50 14l42 26z" fill="#7446c2"/><rect x="40" y="56" width="20" height="28" fill="#f6e2b8"/><path d="M20 40v44M80 40v44" stroke="#ffc83d" stroke-width="4"/>'+E,
  scroll:S+'<rect x="22" y="22" width="56" height="56" fill="#fff4d6" stroke="#b07a00" stroke-width="3"/><rect x="12" y="14" width="12" height="72" rx="6" fill="#b98c5b"/><rect x="76" y="14" width="12" height="72" rx="6" fill="#b98c5b"/><path d="M32 36h36M32 46h36M32 56h36M32 66h24" stroke="#14275c" stroke-width="3" stroke-linecap="round"/>'+E,
  giftBox:S+'<rect x="14" y="40" width="72" height="50" rx="6" fill="#2bb35b"/><rect x="10" y="30" width="80" height="16" rx="5" fill="#33c46a"/><rect x="44" y="30" width="12" height="60" fill="#ffc83d"/><path d="M50 30c-8-14-26-14-22-2 2 5 14 4 22 2zm0 0c8-14 26-14 22-2-2 5-14 4-22 2z" fill="#ffc83d" stroke="#b07a00" stroke-width="2"/><path d="M50 72c-10-6-14-10-14-15a6 6 0 0 1 14-2 6 6 0 0 1 14 2c0 5-4 9-14 15z" fill="#e0457b"/>'+E,
@@ -35,6 +36,8 @@ var TRY=['לֹא נוֹרָא – עַכְשָׁיו יוֹדְעִים!','טָ�
 var TYPE={mc:'שְׁאֵלָה אֲמֵרִיקָאִית',tf:'נָכוֹן אוֹ לֹא נָכוֹן?',icon:'בַּחֲרוּ תְּמוּנָה',why:'לָמָּה? – שְׁאֵלַת בּוֹנוּס'};
 var setId, set, qs, i=0, phase='main', mode='solo', nTeams=2, teams=[], turn=0, stars=0, right=0, answered=false, cur=null;
 var rnd=function(a){return a[Math.floor(Math.random()*a.length)];};
+function pts(n){return n===1?'נְקֻדָּה אַחַת':n+' נְקֻדּוֹת';}
+function strs(n){return n===1?'כּוֹכָב אֶחָד':n+' כּוֹכָבִים';}
 
 function prep(q){ // build option list with correct flag, shuffled
   var o=q.t==='tf'?[{l:'נָכוֹן',ic:'yes'},{l:'לֹא נָכוֹן',ic:'no'}]:q.o.map(function(x){return typeof x==='string'?{l:x}:x;});
@@ -84,7 +87,7 @@ function board(){
   var b=$('t-score'); b.innerHTML='';
   if(mode==='teams'){
     teams.forEach(function(t,k){var li=document.createElement('li'); li.className='team t-'+t.c+(k===turn?' now':''); if(k===turn) li.setAttribute('aria-current','true');
-      li.innerHTML='<span class="sh">'+t.sh+'</span><span class="tn"></span><span class="ts"></span>'; li.querySelector('.tn').textContent=t.n; li.querySelector('.ts').textContent=t.score+' נְקֻדּוֹת'; b.appendChild(li);});
+      li.innerHTML='<span class="sh">'+t.sh+'</span><span class="tn"></span><span class="ts"></span>'; li.querySelector('.tn').textContent=t.n; li.querySelector('.ts').textContent=pts(t.score); b.appendChild(li);});
     $('t-turn').hidden=false; $('t-turn').innerHTML='<span class="sh t-'+teams[turn].c+'">'+teams[turn].sh+'</span><span>הַתּוֹר שֶׁל: <b></b></span>'; $('t-turn').querySelector('b').textContent=teams[turn].n;
   } else {
     var li=document.createElement('li'); li.className='team solo'; li.innerHTML=SH.icons.star+'<span class="tn">כּוֹכָבִים</span><span class="ts">'+stars+'</span>'; b.appendChild(li);
@@ -139,7 +142,7 @@ function end(){
     var max=Math.max.apply(null,teams.map(function(t){return t.score;}))||1;
     var top=teams.filter(function(t){return t.score===max;});
     teams.forEach(function(t){var li=document.createElement('li'); li.className='pod t-'+t.c+(t.score===max&&max>0?' top':''); li.style.setProperty('--h',(18+82*t.score/max)+'%');
-      li.innerHTML='<span class="pod-s">'+t.score+'</span><span class="pod-bar"><span class="sh">'+t.sh+'</span></span><span class="pod-n"></span>'; li.querySelector('.pod-n').textContent=t.n; li.setAttribute('aria-label',t.n+': '+t.score+' נְקֻדּוֹת'); pod.appendChild(li);});
+      li.innerHTML='<span class="pod-s">'+t.score+'</span><span class="pod-bar"><span class="sh">'+t.sh+'</span></span><span class="pod-n"></span>'; li.querySelector('.pod-n').textContent=t.n; li.setAttribute('aria-label',t.n+': '+pts(t.score)); pod.appendChild(li);});
     pod.hidden=false;
     $('end-h').textContent='כָּל הַצְּוָתִים סִיְּמוּ!';
     $('end-msg').textContent=(max>0?(top.length>1?'תֵּיקוֹ! הֲכִי הַרְבֵּה נְקֻדּוֹת: '+top.map(function(t){return t.n;}).join(' וְ'):'הֲכִי הַרְבֵּה נְקֻדּוֹת: '+top[0].n)+'. ':'')+'אֲבָל הַנִּצָּחוֹן הָאֲמִתִּי: כֻּלָּנוּ לָמַדְנוּ '+total+' דְּבָרִים חֲדָשִׁים הַיּוֹם!';
@@ -147,10 +150,10 @@ function end(){
     pod.hidden=true;
     $('end-h').textContent='סִיַּמְתֶּם אֶת הַטְּרִיוִיָּה!';
     var r=right/total, praise=r>=.8?'אַלּוּפִים!':r>=.5?'יָפֶה מְאוֹד!':'כָּל הַכָּבוֹד שֶׁנִּסִּיתֶם!';
-    $('end-msg').textContent=praise+' עֲנִיתֶם נָכוֹן עַל '+right+' מִתּוֹךְ '+total+' שְׁאֵלוֹת, וְקִבַּלְתֶּם '+stars+' כּוֹכָבִים. וּמָה שֶׁהֲכִי חָשׁוּב – לְמַדְתֶּם דְּבָרִים חֲדָשִׁים!';
+    $('end-msg').textContent=praise+' עֲנִיתֶם נָכוֹן עַל '+right+' מִתּוֹךְ '+total+' שְׁאֵלוֹת, וְקִבַּלְתֶּם '+strs(stars)+'. וּמָה שֶׁהֲכִי חָשׁוּב – לְמַדְתֶּם דְּבָרִים חֲדָשִׁים!';
   }
   $('end-stars').innerHTML=mode==='teams'?'':new Array(Math.min(stars,10)+1).join(SH.icons.star);
-  $('end-h').focus(); SH.confetti(); SH.speak($('end-h').textContent+' '+$('end-msg').textContent);
+  $('end-h').focus(); SH.confetti(); SH.speak(SH.text($('end-h'))+' '+SH.text($('end-msg')));
 }
 /* ---------- init ---------- */
 document.addEventListener('DOMContentLoaded',function(){

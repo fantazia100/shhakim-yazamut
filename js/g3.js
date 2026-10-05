@@ -7,7 +7,7 @@ var MAT={
  cap:{art:'caps',one:'פְּקָק',many:'פְּקָקִים',n:4},
  pin:{art:'pins',one:'אֶטֶב',many:'אֲטָבִים',n:5},
  string:{art:'string',one:'חוּט (מֶטֶר)',many:'חוּטִים',n:1},
- tape:{art:'tape',one:'נְיַר דֶּבֶק',many:'נְיַר דֶּבֶק',n:1},
+ tape:{art:'tape',one:'נְיַר דֶּבֶק (50 ס"מ)',many:'נְיַר דֶּבֶק',n:1},
  paper:{art:'paper',one:'דַּף צִבְעוֹנִי',many:'דַּפִּים',n:1}
 };
 var NOT=[{art:'scissors',name:'מִסְפָּרַיִם חַדִּים',why:'מִסְפָּרַיִם חַדִּים לֹא בַּשַּׂקִּית – וְהֵם גַּם מְסֻכָּנִים.'},{art:'glueGun',name:'אֶקְדַּח דֶּבֶק חַם',why:'דֶּבֶק חַם לֹא בַּשַּׂקִּית – הוּא שׂוֹרֵף, וְרַק מְבֻגָּרִים מִשְׁתַּמְּשִׁים בּוֹ.'},{art:'glassBottle',name:'בַּקְבּוּק זְכוּכִית',why:'בַּקְבּוּק זְכוּכִית לֹא בַּשַּׂקִּית – וְהוּא עָלוּל לְהִשָּׁבֵר.'}];
@@ -30,12 +30,13 @@ var MISSIONS=[
    {id:'sign',label:'שֶׁלֶט עִם הַחֻקִּים (לֹא חוֹבָה)',hint:'עַל מָה כּוֹתְבִים אֶת הַחֻקִּים?',acc:{paper:1},opt:true}]},
  {id:'tape',art:'tapeStand',name:'מִתְקָן לִנְיַר דֶּבֶק',desc:'שֶׁיִּהְיֶה קַל לְכֻלָּם לְהִשְׁתַּמֵּשׁ בִּנְיַר הַדֶּבֶק בַּכִּתָּה.',slots:[
    {id:'body',label:'גּוּף כָּבֵד',hint:'מָה יִהְיֶה הַגּוּף שֶׁל הַמִּתְקָן?',acc:{box:1}},
-   {id:'axle',label:'צִיר לַגָּלִיל',hint:'עַל מָה יִסְתּוֹבֵב גְּלִיל נְיַר הַדֶּבֶק?',acc:{roll:1,string:1}},
-   {id:'feet',label:'רַגְלַיִם שֶׁלֹּא יַחְלִיקוּ',hint:'מָה נָשִׂים מִתַּחַת לַמִּתְקָן?',acc:{cap:4,pin:4}},
+   {id:'axle',label:'צִיר לַגְּלִיל',hint:'עַל מָה יִסְתּוֹבֵב גְּלִיל נְיַר הַדֶּבֶק?',acc:{roll:1,string:1}},
+   {id:'feet',label:'רַגְלַיִם שֶׁלֹּא יַחֲלִיקוּ',hint:'מָה נָשִׂים מִתַּחַת לַמִּתְקָן?',acc:{cap:4,pin:4}},
    {id:'deco',label:'קִשּׁוּט (לֹא חוֹבָה)',hint:'מַשֶּׁהוּ צִבְעוֹנִי.',acc:{paper:1},opt:true}]}
 ];
-var HELPS=['לְחָבֵר בַּכִּתָּה','לַמּוֹרָה','לִילָדֵי כִּתָּה א\'','לְכָל הַכִּתָּה'];
+var HELPS=['לְחָבֵר בַּכִּתָּה','לַמּוֹרָה','לְיַלְדֵי כִּתָּה א׳','לְכָל הַכִּתָּה'];
 var $=function(id){return document.getElementById(id);};
+function fbk(kind,text){SH.feedback($('fb'),kind,text); setTimeout(seeFb,0);}
 var level='b', mission=null, counts={}, slots=[], selected=null, removed=null;
 function qtyName(m,q){return q===1?MAT[m].one:(q+' '+MAT[m].many);}
 function show(id){['s-intro','s-build','s-show'].forEach(function(s){$(s).hidden=s!==id;});}
@@ -73,8 +74,8 @@ function start(ms){
   $('build-sub').textContent=ms.desc;
   var lot=$('lottery'); lot.hidden=!removed; if(removed) lot.textContent='הַחֹמֶר שֶׁיָּצָא בַּהַגְרָלָה: '+MAT[removed].one+'. בּוֹנִים בְּלִי הַחֹמֶר הַזֶּה!';
   renderMats(); renderSlots(); $('fb').innerHTML=''; $('fb').className='feedback';
-  show('s-build'); $('build-h').focus();
-  SH.speak($('build-h').textContent+'. '+ms.desc+(removed?' '+lot.textContent:''));
+  show('s-build'); $('s-build').scrollIntoView({block:'start'}); $('build-h').focus({preventScroll:true});
+  SH.speak(SH.text($('build-h'))+'. '+ms.desc+(removed?' '+SH.text(lot):''));
   startTimer();
 }
 function renderMats(){
@@ -86,14 +87,14 @@ function renderMats(){
     b.setAttribute('aria-pressed',String(selected===k));
     b.setAttribute('aria-label',MAT[k].one+', '+(k===removed?'יָצָא בַּהַגְרָלָה':out?'נִגְמַר':'נִשְׁאֲרוּ '+c));
     if(out){b.setAttribute('aria-disabled','true'); b.classList.add('out');}
-    b.addEventListener('click',function(){ if(b._noClick){b._noClick=false;return;} if(out){SH.feedback($('fb'),'try',k===removed?'הַחֹמֶר הַזֶּה יָצָא בַּהַגְרָלָה – חַפְּשׂוּ דֶּרֶךְ אַחֶרֶת!':'נִגְמַר: '+MAT[k].one+'. אֶפְשָׁר לְהַחְזִיר חֹמֶר מִשֻּׁלְחַן הָעֲבוֹדָה, אוֹ לְנַסּוֹת חֹמֶר אַחֵר.'); return;}
-      selected=selected===k?null:k; renderMats(); if(selected){SH.sfx.click(); SH.announce('בְּחַרְתֶּם '+MAT[k].one+'. עַכְשָׁו בַּחֲרוּ חֵלֶק בְּשֻׁלְחַן הָעֲבוֹדָה.');} var nb=document.querySelector('.mat[data-m="'+k+'"]'); nb&&nb.focus(); });
+    b.addEventListener('click',function(){ if(b._noClick){b._noClick=false;return;} if(out){fbk('try',k===removed?'הַחֹמֶר הַזֶּה יָצָא בַּהַגְרָלָה – חַפְּשׂוּ דֶּרֶךְ אַחֶרֶת!':'נִגְמַר: '+MAT[k].one+'. אֶפְשָׁר לְהַחְזִיר חֹמֶר מִשֻּׁלְחַן הָעֲבוֹדָה, אוֹ לְנַסּוֹת חֹמֶר אַחֵר.'); return;}
+      selected=selected===k?null:k; renderMats(); if(selected){SH.sfx.click(); SH.announce('בְּחַרְתֶּם '+MAT[k].one+'. עַכְשָׁיו בַּחֲרוּ חֵלֶק בְּשֻׁלְחַן הָעֲבוֹדָה.');} var nb=document.querySelector('.mat[data-m="'+k+'"]'); nb&&nb.focus(); });
     if(!out) SH.drag(b,{targets:function(){return document.querySelectorAll('.slot');},onDrop:function(t){selected=k; placeInto(+t.dataset.i);}});
     g.appendChild(b);
   });
   var n=$('notmats'); if(!n.children.length){ NOT.forEach(function(x){var b=document.createElement('button'); b.type='button'; b.className='mat forbidden'; b.innerHTML=ART[x.art]+'<span class="mat-n">'+x.name+'</span>'; b.setAttribute('aria-label',x.name+' – לֹא בַּשַּׂקִּית');
-    b.addEventListener('click',function(){SH.feedback($('fb'),'try',x.why+' בְּצַלְאֵל בָּנָה מִמָּה שֶׁהָיָה – וְגַם אֲנַחְנוּ!');});
-    SH.drag(b,{targets:function(){return document.querySelectorAll('.slot');},onDrop:function(){SH.feedback($('fb'),'try',x.why+' בּוֹנִים רַק מִמָּה שֶׁבַּשַּׂקִּית.');}});
+    b.addEventListener('click',function(){fbk('try',x.why+' בְּצַלְאֵל בָּנָה מִמָּה שֶׁהָיָה – וְגַם אֲנַחְנוּ!');});
+    SH.drag(b,{targets:function(){return document.querySelectorAll('.slot');},onDrop:function(){fbk('try',x.why+' בּוֹנִים רַק מִמָּה שֶׁבַּשַּׂקִּית.');}});
     n.appendChild(b);}); }
 }
 function renderSlots(){
@@ -103,28 +104,37 @@ function renderSlots(){
     b.innerHTML='<span class="slot-l">'+s.label+'</span>'+(s.placed?'<span class="slot-art">'+ART[MAT[s.placed].art]+'</span><span class="slot-m">'+qtyName(s.placed,s.qty)+'</span><span class="slot-x">לְהַחְזִיר לַשַּׂקִּית</span>':'<span class="slot-empty">'+(selected?'שִׂימוּ כָּאן':'רֵיק')+'</span>');
     b.setAttribute('aria-label',s.label+': '+(s.placed?qtyName(s.placed,s.qty)+'. לְחִיצָה מַחֲזִירָה לַשַּׂקִּית':'רֵיק'+(selected?'. לְחִיצָה שָׂמָה כָּאן '+MAT[selected].one:'')));
     b.addEventListener('click',function(){
-      if(s.placed){ counts[s.placed]+=s.qty; var m=s.placed; s.placed=null; s.qty=0; renderMats(); renderSlots(); SH.feedback($('fb'),'info',MAT[m].one+' חָזַר לַשַּׂקִּית.'); focusSlot(i); return; }
-      if(!selected){ SH.feedback($('fb'),'try','בַּחֲרוּ קֹדֶם חֹמֶר מֵהַשַּׂקִּית. רֶמֶז: '+s.hint); return; }
+      if(s.placed){ counts[s.placed]+=s.qty; var m=s.placed; s.placed=null; s.qty=0; renderMats(); renderSlots(); fbk('info','חָזַר לַשַּׂקִּית: '+MAT[m].one+'.'); focusSlot(i); return; }
+      if(!selected){ fbk('try','בַּחֲרוּ קֹדֶם חֹמֶר מֵהַשַּׂקִּית. רֶמֶז: '+s.hint); return; }
       placeInto(i);
     });
     g.appendChild(b);
   });
 }
-function focusSlot(i){var e=document.querySelector('.slot[data-i="'+i+'"]'); e&&e.focus();}
+function focusSlot(i){var e=document.querySelector('.slot[data-i="'+i+'"]'); e&&e.focus({preventScroll:true}); seeFb();}
+/* keep the feedback line visible above the sticky material strip (phones) */
+function seeFb(){
+  var fb=$('fb'); if(!fb||$('s-build').hidden) return;
+  var bag=document.querySelector('.bag'), top=(document.querySelector('.topbar')||{}).offsetHeight||0;
+  var limit=(bag&&getComputedStyle(bag).position==='sticky')?Math.min(innerHeight,bag.getBoundingClientRect().top):innerHeight;
+  var r=fb.getBoundingClientRect(), row=fb.nextElementSibling, bottom=row?row.getBoundingClientRect().bottom:r.bottom;
+  /* keep the feedback AND the check button above the sticky bag, without pushing the feedback under the top bar */
+  if(bottom>limit) window.scrollBy(0,Math.max(0,Math.min(bottom-limit+8,r.top-top-8))); else if(r.top<top) window.scrollBy(0,r.top-top-8);
+}
 function placeInto(i){
   var s=slots[i], m=selected; if(!m) return;
-  if(s.placed){ SH.feedback($('fb'),'try','בַּחֵלֶק הַזֶּה כְּבָר יֵשׁ חֹמֶר. לְחִיצָה עָלָיו מַחֲזִירָה אוֹתוֹ לַשַּׂקִּית.'); return; }
+  if(s.placed){ fbk('try','בַּחֵלֶק הַזֶּה כְּבָר יֵשׁ חֹמֶר. לְחִיצָה עָלָיו מַחֲזִירָה אוֹתוֹ לַשַּׂקִּית.'); return; }
   var need=s.acc[m];
-  if(!need){ SH.feedback($('fb'),'try',MAT[m].one+' לֹא מַתְאִים לְכָאן. רֶמֶז: '+s.hint); var e=document.querySelector('.slot[data-i="'+i+'"]'); if(e&&SH.fx()){e.classList.add('shake'); setTimeout(function(){e.classList.remove('shake');},500);} return; }
-  if(counts[m]<need){ SH.feedback($('fb'),'try','צָרִיךְ '+qtyName(m,need)+', וְנִשְׁאֲרוּ רַק '+counts[m]+'. אוּלַי חֹמֶר אַחֵר יַתְאִים? '+s.hint); return; }
+  if(!need){ fbk('try',MAT[m].one+' לֹא מַתְאִים לְכָאן. רֶמֶז: '+s.hint); var e=document.querySelector('.slot[data-i="'+i+'"]'); if(e&&SH.fx()){e.classList.add('shake'); setTimeout(function(){e.classList.remove('shake');},500);} return; }
+  if(counts[m]<need){ fbk('try','צָרִיךְ '+qtyName(m,need)+', וְנִשְׁאֲרוּ רַק '+counts[m]+'. אוּלַי חֹמֶר אַחֵר יַתְאִים? '+s.hint); return; }
   counts[m]-=need; s.placed=m; s.qty=need; selected=null;
   renderMats(); renderSlots(); focusSlot(i);
   var e=document.querySelector('.slot[data-i="'+i+'"]'); if(e&&SH.fx()) e.classList.add('pop');
-  SH.feedback($('fb'),'good',s.label+': '+qtyName(m,need)+'. רַעְיוֹן טוֹב!');
+  fbk('good',s.label+': '+qtyName(m,need)+'. רַעְיוֹן טוֹב!');
 }
 function check(){
   var miss=slots.filter(function(s){return !s.opt && !s.placed;});
-  if(miss.length){ SH.feedback($('fb'),'try','עוֹד לֹא סִיַּמְנוּ. חָסֵר: '+miss.map(function(s){return s.label;}).join(', ')+'.'); return; }
+  if(miss.length){ fbk('try','עוֹד לֹא סִיַּמְנוּ. חָסֵר: '+miss.map(function(s){return s.label;}).join(', ')+'.'); return; }
   stopTimer();
   var used=slots.filter(function(s){return s.placed;}).map(function(s){return qtyName(s.placed,s.qty);});
   var left=Object.keys(counts).filter(function(k){return counts[k]>0;}).map(function(k){return qtyName(k,counts[k]);});
@@ -145,7 +155,7 @@ function startTimer(){
   tLeft=(level==='g'?10:12)*60; paused=false; hg.hidden=false; $('hg-pause').textContent='עֲצִירָה'; drawT();
   tInt=setInterval(function(){ if(paused) return; tLeft--; drawT();
     if(tLeft===300) SH.announce('נִשְׁאֲרוּ 5 דַּקּוֹת'); if(tLeft===60) SH.announce('נִשְׁאֲרָה דַּקָּה אַחַת');
-    if(tLeft<=0){ stopTimer(); SH.feedback($('fb'),'info','הַזְּמַן נִגְמַר! אֶפְשָׁר לְהַמְשִׁיךְ בְּנַחַת – הָעִקָּר לְסַיֵּם יַחַד.'); } },1000);
+    if(tLeft<=0){ stopTimer(); fbk('info','הַזְּמַן נִגְמַר! אֶפְשָׁר לְהַמְשִׁיךְ בְּנַחַת – הָעִקָּר לְסַיֵּם יַחַד.'); } },1000);
 }
 function drawT(){var m=Math.floor(tLeft/60), s=tLeft%60; $('hg-time').textContent=m+':'+(s<10?'0':'')+s; $('hourglass').classList.toggle('low',tLeft<=60);}
 function stopTimer(){ if(tInt){clearInterval(tInt); tInt=null;} }

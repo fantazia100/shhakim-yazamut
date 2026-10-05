@@ -21,14 +21,14 @@ var OBJ=[
   ['p','מַקֵּל שֶׁתּוֹמֵךְ בִּשְׁתִיל','תּוֹקְעִים אוֹתָהּ בָּאֲדָמָה וְקוֹשְׁרִים אֵלֶיהָ אֶת הַשְּׁתִיל.'],
   ['p','מוֹדְדִים בָּהּ אֶת אֹרֶךְ הַשֻּׁלְחָן','סוֹפְרִים כַּמָּה כַּפּוֹת יֵשׁ, כְּמוֹ בְּסַרְגֵּל.'],
   ['i','כַּף שֶׁמְּסַפֶּרֶת סִפּוּרִים','לְכַף עֵץ אֵין פֶּה וְאֵין קוֹל.'],
-  ['i','מַטֵּה קֶסֶם שֶׁהוֹפֵךְ הַכֹּל לְשׁוֹקוֹלָד','זֶה קֶסֶם – לֹא מַשֶּׁהוּ שֶׁאֶפְשָׁר לִבְנוֹת.'],
+  ['i','מַטֵּה קֶסֶם שֶׁמַּעֲלִים כָּל דָּבָר','זֶה קֶסֶם – לֹא מַשֶּׁהוּ שֶׁאֶפְשָׁר לִבְנוֹת.'],
   ['u','מְשַׂחֲקִים בָּהּ קְרַב חֲרָבוֹת','אֶפְשָׁר לִפְגֹּעַ בָּעֵינַיִם אוֹ בַּגּוּף.']]},
  {id:'pin',art:'clothespin',name:'אֶטֶב כְּבִיסָה',ideas:[
   ['p','מַחֲזִיק דַּפִּים יַחַד','הָאֶטֶב לוֹחֵץ, וְהַדַּפִּים לֹא מִתְפַּזְּרִים.'],
   ['p','תּוֹלִים צִיּוּרִים עַל חוּט בַּכִּתָּה','כְּמוֹ כְּבִיסָה – רַק עִם צִיּוּרִים!'],
   ['p','סוֹגֵר שַׂקִּית שֶׁלֹּא תִּשָּׁפֵךְ','הָאֶטֶב סוֹגֵר אֶת הַשַּׂקִּית חָזָק.'],
   ['i','אֶטֶב שֶׁעָף כְּמוֹ צִפּוֹר','לְאֶטֶב אֵין כְּנָפַיִם.'],
-  ['i','תַּנִּין קָטָן שֶׁאוֹכֵל פֵּרוּרִים','הָאֶטֶב לֹא חַי וְלֹא אוֹכֵל – רַק בַּדִּמְיוֹן.'],
+  ['i','תַּנִּין קָטָן שֶׁמְּדַבֵּר','הָאֶטֶב לֹא חַי וְלֹא מְדַבֵּר – רַק בַּדִּמְיוֹן.'],
   ['u','מַצְמִידִים אוֹתוֹ לָאַף שֶׁל חָבֵר','זֶה כּוֹאֵב, וְזֶה לֹא נָעִים לַחָבֵר.']]},
  {id:'cap',art:'cap',name:'פְּקָק',ideas:[
   ['p','גַּלְגַּלִּים לִמְכוֹנִית מִקַּרְטוֹן','הַפְּקָק עָגֹל – בְּדִיּוּק כְּמוֹ גַּלְגַּל.'],
@@ -57,7 +57,7 @@ function buildPick(){
   });
   var n=Object.keys(done).length;
   $('to-card').hidden=n===0;
-  $('g1-total').textContent=n?('עַד עַכְשָׁו מְצָאתֶם '+totalPractical+' שִׁמּוּשִׁים מַעֲשִׂיִּים. כִּתָּה ב\': 3 שִׁמּוּשִׁים · כִּתָּה ג\': 6 וּמַעְלָה.'):'';
+  $('g1-total').textContent=n?('עַד עַכְשָׁיו מְצָאתֶם '+totalPractical+' שִׁמּוּשִׁים מַעֲשִׂיִּים. כִּתָּה ב׳: 3 שִׁמּוּשִׁים · כִּתָּה ג׳: 6 וּמַעְלָה.'):'';
 }
 function start(o){
   cur=o; queue=SH.shuffle(o.ideas); idx=0; counts={p:0,i:0,u:0}; practical=[];
@@ -65,8 +65,8 @@ function start(o){
   $('obj-art').innerHTML=ART[o.art];
   document.querySelectorAll('.bin-n').forEach(function(n){n.textContent='0';});
   $('fb').innerHTML=''; $('fb').className='feedback';
-  show('s-sort'); dealCard(); $('sort-h').setAttribute('tabindex','-1'); $('sort-h').focus();
-  SH.speak($('sort-h').textContent);
+  show('s-sort'); dealCard(); $('sort-h').setAttribute('tabindex','-1'); $('s-sort').scrollIntoView({block:'start'}); $('sort-h').focus({preventScroll:true});
+  SH.speak(SH.text($('sort-h')));
 }
 function dealCard(){
   var c=queue[idx]; tries=0;
@@ -110,7 +110,7 @@ function next(){
   $('done-h').textContent='כָּל הַכָּבוֹד! מִיַּנְתֶּם אֶת כָּל הָרַעְיוֹנוֹת שֶׁל '+cur.name+'.';
   var ul=$('uses'); ul.innerHTML='';
   practical.forEach(function(t){var li=document.createElement('li'); li.textContent=t; ul.appendChild(li);});
-  show('s-done'); $('done-h').focus(); SH.confetti(); SH.speak($('done-h').textContent);
+  show('s-done'); $('done-h').focus(); SH.confetti(); SH.speak(SH.text($('done-h')));
 }
 function buildCard(){
   var g=$('init'); g.innerHTML='';
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded',function(){
     SH.feedback($('fb-own'),'good','הָרַעְיוֹן נוֹסַף לָרְשִׁימָה. אֵין רַעְיוֹן טִפְּשִׁי!');});
   $('make-card').addEventListener('click',function(){
     var w=val($('who')), it=val($('init'));
-    if(!w||!it){SH.feedback($('fb2'),'try', !w?'בַּחֲרוּ: אֲנִי יַזָּם אוֹ אֲנִי יַזָּמִית.':'בַּחֲרוּ יוֹזְמָה קְטַנָּה לַשָּׁבוּעַ.'); return;}
+    if(!w||!it){SH.feedback($('fb2'),'try', !w?'בַּחֲרוּ: אֲנִי יַזָּם אוֹ אֲנִי יַזֶּמֶת.':'בַּחֲרוּ יוֹזְמָה קְטַנָּה לַשָּׁבוּעַ.'); return;}
     $('cert-title').textContent=w; $('cert-init').textContent=it+'.';
     $('flip-wrap').hidden=false; var fc=$('flipcard'); fc.classList.remove('flipped'); void fc.offsetWidth; setTimeout(function(){fc.classList.add('flipped');},60);
     SH.feedback($('fb2'),'good','אֵיזֶה יֹפִי! אֶת מִי הַיּוֹזְמָה שֶׁלָּכֶם תְּשַׂמֵּחַ? סַפְּרוּ לָנוּ בַּשָּׁבוּעַ הַבָּא!');
