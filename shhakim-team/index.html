@@ -42,7 +42,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4
 </style></head><body><div class="wrap">
 <header><img src="assets/logo.jpg" alt="לוגו בית ספר שחקים">
 <div class="tag">בית ספר מדעי ליזמות חוקרת</div>
-<h1>המוצר והממציא</h1><div class="sub">מאדם פשוט ליזם משמעותי: מסע חקר לצוות ולתלמידי ה׳-ו׳</div><div class="line"></div>
+<h1>המוצר והממציא</h1><div class="line"></div>
 <div class="compass"><span class="chip"><i style="background:var(--b2)"></i>למידה בכל מקום</span><span class="chip"><i style="background:var(--g)"></i>חכמת החיבורים</span><span class="chip"><i style="background:var(--o2)"></i>למידה התנסותית</span><span class="chip"><i style="background:var(--p2)"></i>SEL</span></div></header>
 <div class="steps" role="tablist"><button id="t1" class="on" onclick="go(1)">1 · המוצר שלי</button><button id="t2" onclick="go(2)">2 · מסע ההמצאה</button></div>
 
@@ -50,7 +50,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4
 <h2><span class="num">1</span>המוצר שלי</h2><p class="hint">בחרו מוצר שאתם פוגשים כל יום. הסתכלו עליו כמו חוקרים.</p>
 <label>בחירה מהירה (או כתבו בעצמכם)</label>
 <div class="opts" id="opts"></div>
-<label for="q1">שאלה 1 · מה המוצר?</label><input id="q1" placeholder="שם המוצר">
+<label for="q1">שאלה 1 · מה המוצר שמוצג בקבוצה שלך?</label><input id="q1" placeholder="שם המוצר שמוצג בקבוצה">
 <label for="q2">שאלה 2 · איזו בעיה המוצר פותר? למי הוא עוזר?</label><textarea id="q2" placeholder="הבעיה, והאנשים שהמוצר משרת"></textarea>
 <div class="nav"><button class="btn" onclick="go(2)">ממשיכים למסע ההמצאה</button></div></section>
 
@@ -85,7 +85,7 @@ ids.forEach(i=>{const e=document.getElementById(i);e.value=st[i]||'';e.oninput=(
 function save(){ids.forEach(i=>st[i]=document.getElementById(i).value.trim());localStorage.setItem(K,JSON.stringify(st))}
 function go(n){[1,2,3].forEach(i=>document.getElementById('s'+i).classList.toggle('hide',i!==n));t1.classList.toggle('on',n==1);t2.classList.toggle('on',n>=2);scrollTo({top:document.querySelector('.steps').offsetTop-10,behavior:'smooth'})}
 const v=x=>x||'...';
-function text(){save();return `המוצר: ${v(st.q1)}\nהבעיה שהוא פותר: ${v(st.q2)}\nשם היזם: ${v(st.q3a)}\nמה הביא אותו להמצאה: ${v(st.q3b)}\nהאם הומצא מיד באופן מושלם: ${v(st.yn)}\nשלבי הפיתוח: 1. ${v(st.st1)}  2. ${v(st.st2)}  3. ${v(st.st3)}`}
+function text(){save();return `המוצר שמוצג בקבוצה שלי: ${v(st.q1)}\nהבעיה שהוא פותר: ${v(st.q2)}\nשם היזם: ${v(st.q3a)}\nמה הביא אותו להמצאה: ${v(st.q3b)}\nהאם הומצא מיד באופן מושלם: ${v(st.yn)}\nשלבי הפיתוח: 1. ${v(st.st1)}  2. ${v(st.st2)}  3. ${v(st.st3)}`}
 function finish(){const e=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));sumBody.innerHTML=text().split('\n').map(l=>{const[a,...b]=l.split(':');return `<p><strong>${e(a)}:</strong>${e(b.join(':'))}</p>`}).join('')+(st.yn==='לא'?'<p class="hint">בדיוק כך: יזמות חוקרת היא ניסוי, טעייה ושיפור.</p>':'');go(3)}
 function copySum(){navigator.clipboard.writeText('המוצר והממציא | שחקים\n'+text()).then(()=>msg.textContent='הועתק. אפשר להדביק בקבוצת הצוות')}
 function resetAll(){if(confirm('להתחיל מוצר חדש?')){st={};localStorage.removeItem(K);ids.forEach(i=>document.getElementById(i).value='');mark();go(1)}}
