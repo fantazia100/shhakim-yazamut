@@ -1,44 +1,44 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>המוצר והממציא | שחקים</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Heebo:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--p:#7969A6;--p2:#B898BC;--g:#A3BD65;--g2:#D1E4A4;--o:#E99A65;--o2:#F9B379;--b:#5CAACB;--b2:#58C7EF;--ink:#3a3450;--bg:#FBF8F2}
 *{box-sizing:border-box}html,body{margin:0;overflow-x:hidden}
-body{font-family:Heebo,sans-serif;color:var(--ink);background:radial-gradient(1200px 600px at 100% -10%,#efe7f3 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#eef5dc 0,transparent 60%),var(--bg);min-height:100vh;line-height:1.6}
+body{font-family:Heebo,sans-serif;font-size:19px;color:var(--ink);background:radial-gradient(1200px 600px at 100% -10%,#efe7f3 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#eef5dc 0,transparent 60%),var(--bg);min-height:100vh;line-height:1.6}
 .wrap{max-width:760px;margin:auto;padding:20px 16px 60px}
 header{text-align:center;padding:10px 0 6px}
-header img{width:110px;height:110px;object-fit:contain;border-radius:50%;background:#fff;box-shadow:0 8px 30px rgba(121,105,166,.18);padding:6px}
+header img{width:min(320px,80vw);height:auto;display:block;margin:0 auto;object-fit:contain}
 .tag{font-size:.85rem;letter-spacing:.08em;color:var(--p);margin-top:10px;font-weight:600}
-h1{font-family:'Frank Ruhl Libre',serif;font-size:clamp(1.9rem,6vw,2.8rem);margin:.2em 0 0;color:var(--p)}
+h1{font-family:Rubik,sans-serif;font-size:clamp(1.9rem,6vw,2.8rem);margin:.2em 0 0;color:var(--p)}
 .sub{font-size:1.05rem;color:#6b6480;margin:.2em 0 .8em}
 .line{height:2px;width:120px;margin:10px auto;background:linear-gradient(90deg,var(--b2),var(--g),var(--o2),var(--p2));border-radius:2px}
 .compass{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
 .chip{font-size:.85rem;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.7);border:1px solid rgba(121,105,166,.18)}
 .chip i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:6px}
 .steps{display:flex;gap:10px;margin:22px 0 14px}
-.steps button{flex:1;min-height:56px;border-radius:16px;border:1px solid rgba(121,105,166,.2);background:rgba(255,255,255,.6);font:600 1rem Heebo;color:var(--ink);cursor:pointer}
+.steps button{flex:1;min-height:56px;border-radius:16px;border:1px solid rgba(121,105,166,.2);background:rgba(255,255,255,.6);font:600 1.1rem Heebo;color:var(--ink);cursor:pointer}
 .steps button.on{background:var(--p);color:#fff;box-shadow:0 8px 20px rgba(121,105,166,.3)}
 .card{background:rgba(255,255,255,.78);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);border-radius:24px;padding:22px 18px;box-shadow:0 14px 40px rgba(58,52,80,.08);margin-bottom:18px;border-top:3px solid var(--acc,var(--p2))}
-.card h2{font-family:'Frank Ruhl Libre',serif;margin:0 0 4px;font-size:1.5rem}
+.card h2{font-family:Rubik,sans-serif;margin:0 0 4px;font-size:1.5rem}
 .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;font-weight:800;margin-left:8px;font-size:.95rem}
 .hint{color:#7a7390;font-size:.95rem;margin:0 0 14px}
 label{display:block;font-weight:600;margin:16px 0 6px}
-input,textarea{width:100%;font:1.05rem Heebo;padding:14px;border-radius:14px;border:1px solid #ddd6e6;background:#fff;color:var(--ink);min-height:52px}
+input,textarea{width:100%;font:1.15rem Heebo;padding:14px;border-radius:14px;border:1px solid #ddd6e6;background:#fff;color:var(--ink);min-height:52px}
 textarea{min-height:90px;resize:vertical}
 input:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4px rgba(121,105,166,.15)}
-.yn{display:flex;gap:10px}.yn button,.opts button{flex:1;min-height:54px;border-radius:14px;border:1px solid #ddd6e6;background:#fff;font:600 1.05rem Heebo;cursor:pointer;color:var(--ink)}
+.yn{display:flex;gap:10px}.yn button,.opts button{flex:1;min-height:54px;border-radius:14px;border:1px solid #ddd6e6;background:#fff;font:600 1.15rem Heebo;cursor:pointer;color:var(--ink)}
 .yn button.on,.opts button.on{background:var(--acc);color:#fff;border-color:transparent}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
 .stage{display:flex;gap:10px;align-items:center;margin-bottom:10px}.stage b{flex:0 0 38px;height:38px;display:grid;place-items:center;border-radius:50%;background:var(--g2);color:#4d6020}
 .nav{display:flex;gap:10px;margin-top:20px}
-.btn{flex:1;min-height:56px;border:0;border-radius:16px;font:700 1.05rem Heebo;cursor:pointer;background:var(--p);color:#fff;box-shadow:0 8px 20px rgba(121,105,166,.25)}
+.btn{flex:1;min-height:56px;border:0;border-radius:16px;font:700 1.15rem Heebo;cursor:pointer;background:var(--p);color:#fff;box-shadow:0 8px 20px rgba(121,105,166,.25)}
 .btn.ghost{background:#fff;color:var(--p);border:1px solid var(--p2);box-shadow:none}
 .hide{display:none}
 .sum p{margin:6px 0}.sum strong{color:var(--p)}
-.quote{text-align:center;font-family:'Frank Ruhl Libre',serif;color:var(--p);font-size:1.15rem;margin:24px 0 0}
+.quote{text-align:center;font-family:Rubik,sans-serif;color:var(--p);font-size:1.15rem;margin:24px 0 0}
 .values{text-align:center;color:#8a83a0;font-size:.9rem;letter-spacing:.1em}
 .done{text-align:center;color:var(--g);font-weight:700;min-height:1.4em}
-@media(min-width:900px){.wrap{max-width:900px}body{font-size:1.1rem}}
+@media(min-width:900px){.wrap{max-width:960px}body{font-size:22px}}
 </style></head><body><div class="wrap">
 <header><img src="assets/logo.jpg" alt="לוגו בית ספר שחקים">
 <div class="tag">בית ספר מדעי ליזמות חוקרת</div>
